@@ -10,13 +10,14 @@ type: Scheduled Job
 on:
   # The scheduled trigger for your job. You can specify a Unix cron schedule or keyword (@weekly) or a rate (@every 1h30m)
   # AWS Schedule Expressions are also accepted: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
-  schedule: "@every 30m"
-#retries: 3        # Optional. The number of times to retry the job before failing.
+  schedule: "55 * * * *"
+  
+retries: 2        # Optional. The number of times to retry the job before failing.
 #timeout: 1h30m    # Optional. The timeout after which to stop the job if it's still running. You can use the units (h, m, s).
 
 # Configuration for your container and task.
 image:
-  location: nginx
+  build: Dockerfile
 
 cpu: 256       # Number of CPU units for the task.
 memory: 512    # Amount of memory in MiB used by the task.
