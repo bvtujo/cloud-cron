@@ -2,7 +2,7 @@ FROM alpine:latest
 
 RUN apk add curl jq bash
 
-COPY scripts/beeminder.sh .
+COPY scripts .
 
 CMD ["/bin/bash"]
 ENTRYPOINT ["./beeminder.sh"]
