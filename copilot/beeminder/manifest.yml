@@ -10,14 +10,14 @@ type: Scheduled Job
 on:
   # The scheduled trigger for your job. You can specify a Unix cron schedule or keyword (@weekly) or a rate (@every 1h30m)
   # AWS Schedule Expressions are also accepted: https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html
-  schedule: "55 * * * *"
-  
-retries: 2        # Optional. The number of times to retry the job before failing.
+  schedule: "@every 30m"
+#retries: 3        # Optional. The number of times to retry the job before failing.
 #timeout: 1h30m    # Optional. The timeout after which to stop the job if it's still running. You can use the units (h, m, s).
 
 # Configuration for your container and task.
 image:
-  build: Dockerfile
+  build:
+    dockerfile: ./Dockerfile
 
 cpu: 256       # Number of CPU units for the task.
 memory: 512    # Amount of memory in MiB used by the task.
@@ -26,11 +26,15 @@ memory: 512    # Amount of memory in MiB used by the task.
 #
 variables:                    # Pass environment variables as key value pairs.
   GOAL: chess
+  RAPID_GOAL: rapid
+  CHESSCOM_OFFSET: 71
+  LI_OFFSET: 40
 
 secrets:                      # Pass secrets from AWS Systems Manager (SSM) Parameter Store.
   BEEMINDER_USERNAME: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/BEEMINDER_USERNAME
   BEEMINDER_API_TOKEN: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/BEEMINDER_API_TOKEN
   LICHESS_USERNAME: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/LICHESS_USERNAME
+  CHESSCOM_USER: /copilot/${COPILOT_APPLICATION_NAME}/${COPILOT_ENVIRONMENT_NAME}/secrets/CHESSCOM_USER
 
 # You can override any of the values defined above by environment.
 #environments:
